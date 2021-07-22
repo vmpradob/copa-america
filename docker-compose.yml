@@ -3,17 +3,17 @@ networks:
     net:
 services:
     database:
-        image: user-db
-        build:
-            context: db
-            dockerfile: Dockerfile
-        container_name: user-db
+        image: mysql:5.7
+        container_name: database
         ports:
             - "3001:3306"
         volumes:
-            - ./db/storage:/var/lib/mysql
+            - ./db:/var/lib/mysql
         environment:
             MYSQL_ROOT_PASSWORD: password
+            MYSQL_USER: bolsiyo
+            MYSQL_PASSWORD: user_password
+            MYSQL_DATABASE: prod
         networks:
             - net
     app:

@@ -7,8 +7,8 @@ const config = {
   url: '',
   host: 'database',
   port: 3306,
-  user: 'root',
-  password: 'password',
+  user: 'bolsiyo',
+  password: 'user_password',
   database: 'prod'
 };
 
