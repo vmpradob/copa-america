@@ -13,7 +13,7 @@ export async function migrate(args: string[]) {
     // foreign key constraint.
     // For PostgreSQL connector, it does not create tables in the
     // right order.  Therefore, this change is needed.
-    models: ['Tournament', 'Stage', 'Host', 'Group', 'Stadium', 'Team', 'Player', 'Match'],
+    models: ['Tournament', 'Stage', 'Host', 'Group', 'Stadium', 'Team', 'Player', 'Match', 'Substitution'],
   });
   
 

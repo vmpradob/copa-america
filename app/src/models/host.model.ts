@@ -1,5 +1,7 @@
-import {Entity, model, property, belongsTo} from '@loopback/repository';
+import {Entity, model, property, belongsTo, hasMany} from '@loopback/repository';
 import {Tournament} from './tournament.model';
+import {Group} from './group.model';
+import {Stadium} from './stadium.model';
 
 @model()
 export class Host extends Entity {
@@ -15,6 +17,12 @@ export class Host extends Entity {
     required: true,
   })
   name: string;
+
+  @hasMany(() => Group)
+  groups: Group[];
+
+  @hasMany(() => Stadium)
+  stadiums: Stadium[];
 
   constructor(data?: Partial<Host>) {
     super(data);

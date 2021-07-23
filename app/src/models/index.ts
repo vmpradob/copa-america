@@ -6,3 +6,4 @@ export * from './stage.model';
 export * from './match.model';
 export * from './host.model';
 export * from './stadium.model';
+export * from './substitution.model';

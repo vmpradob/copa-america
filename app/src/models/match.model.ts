@@ -1,6 +1,39 @@
-import {Entity, model, property} from '@loopback/repository';
+import {Entity, model, property, belongsTo, hasMany} from '@loopback/repository';
+import {Stadium} from './stadium.model';
+import {Stage} from './stage.model';
+import {Team} from './team.model';
+import {Substitution} from './substitution.model';
 
-@model()
+@model({
+  settings: {
+    foreignKeys: {
+      fk_match_stadiumId: {
+        name: 'fk_match_stadiumId',
+        entity: 'Stadium',
+        entityKey: 'id',
+        foreignKey: 'stadiumId',
+        onUpdate: 'cascade', // restrict|cascade|set null|no action|set default
+        onDelete: 'restrict'   // restrict|cascade|set null|no action|set default
+      },
+      fk_match_stageId: {
+        name: 'fk_match_stageId',
+        entity: 'Stage',
+        entityKey: 'id',
+        foreignKey: 'stageId',
+        onUpdate: 'cascade', // restrict|cascade|set null|no action|set default
+        onDelete: 'restrict'   // restrict|cascade|set null|no action|set default
+      },
+      fk_match_teamId: {
+        name: 'fk_match_teamId',
+        entity: 'Team',
+        entityKey: 'id',
+        foreignKey: 'teamId',
+        onUpdate: 'cascade', // restrict|cascade|set null|no action|set default
+        onDelete: 'restrict'   // restrict|cascade|set null|no action|set default
+      },
+    },
+  },
+})
 export class Match extends Entity {
   @property({
     type: 'number',
@@ -20,6 +53,17 @@ export class Match extends Entity {
   })
   result?: string;
 
+  @belongsTo(() => Stadium)
+  stadiumId: number;
+
+  @belongsTo(() => Stage)
+  stageId: number;
+
+  @belongsTo(() => Team)
+  teamId: number;
+
+  @hasMany(() => Substitution)
+  substitutions: Substitution[];
 
   constructor(data?: Partial<Match>) {
     super(data);

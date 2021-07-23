@@ -1,6 +1,22 @@
-import {Entity, model, property} from '@loopback/repository';
+import {Entity, model, property, belongsTo, hasMany} from '@loopback/repository';
+import {Team} from './team.model';
+import {Match} from './match.model';
+import {Substitution} from './substitution.model';
 
-@model()
+@model({
+  settings: {
+    foreignKeys: {
+      fk_player_teamId: {
+        name: 'fk_player_teamId',
+        entity: 'Team',
+        entityKey: 'id',
+        foreignKey: 'teamId',
+        onUpdate: 'cascade', // restrict|cascade|set null|no action|set default
+        onDelete: 'restrict'   // restrict|cascade|set null|no action|set default
+      },
+    },
+  },
+})
 export class Player extends Entity {
   @property({
     type: 'string',
@@ -81,6 +97,11 @@ export class Player extends Entity {
   })
   height: number;
 
+  @belongsTo(() => Team)
+  teamId: number;
+
+  @hasMany(() => Substitution)
+  substitutions: Substitution[];
 
   constructor(data?: Partial<Player>) {
     super(data);

@@ -1,4 +1,5 @@
-import {Entity, model, property} from '@loopback/repository';
+import {Entity, model, property, hasMany} from '@loopback/repository';
+import {Match} from './match.model';
 
 @model()
 export class Stage extends Entity {
@@ -15,6 +16,8 @@ export class Stage extends Entity {
   })
   name: string;
 
+  @hasMany(() => Match)
+  matches: Match[];
 
   constructor(data?: Partial<Stage>) {
     super(data);

@@ -22,6 +22,9 @@ export class Tournament extends Entity {
   })
   date: string;
 
+  @hasMany(() => Group)
+  groups: Group[];
+
   constructor(data?: Partial<Tournament>) {
     super(data);
   }
