@@ -3,6 +3,7 @@ import {Stadium} from './stadium.model';
 import {Stage} from './stage.model';
 import {Team} from './team.model';
 import {Substitution} from './substitution.model';
+import {Tournament} from './tournament.model';
 
 @model({
   settings: {
@@ -28,6 +29,14 @@ import {Substitution} from './substitution.model';
         entity: 'Team',
         entityKey: 'id',
         foreignKey: 'teamId',
+        onUpdate: 'cascade', // restrict|cascade|set null|no action|set default
+        onDelete: 'restrict'   // restrict|cascade|set null|no action|set default
+      },
+      fk_match_tournamentId: {
+        name: 'fk_match_torunamentId',
+        entity: 'Tournament',
+        entityKey: 'id',
+        foreignKey: 'tournamentId',
         onUpdate: 'cascade', // restrict|cascade|set null|no action|set default
         onDelete: 'restrict'   // restrict|cascade|set null|no action|set default
       },
@@ -64,6 +73,9 @@ export class Match extends Entity {
 
   @hasMany(() => Substitution)
   substitutions: Substitution[];
+
+  @belongsTo(() => Tournament)
+  tournamentId: number;
 
   constructor(data?: Partial<Match>) {
     super(data);
